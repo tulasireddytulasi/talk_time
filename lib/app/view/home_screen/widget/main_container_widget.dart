@@ -53,7 +53,7 @@ class _MainContainerState extends State<MainContainer> {
         top: isDesktopScreen ? 6 : 0,
         bottom: isDesktopScreen ? 6 : 0,
       ),
-      margin: const EdgeInsets.only(top: 20),
+      margin: EdgeInsets.only(top: isDesktopScreen ? 20 : 0),
       decoration: BoxDecoration(
         color: ColorPalette.primaryContainer,
         borderRadius: isDesktopScreen ? const BorderRadius.all(Radius.circular(20)) : null,
@@ -66,7 +66,7 @@ class _MainContainerState extends State<MainContainer> {
             flex: getUsersListScreenSize(maxWidth),
             child: Container(
               alignment: Alignment.topLeft,
-              padding: const EdgeInsets.only(top: 20, left: 0),
+              padding: const EdgeInsets.only(top: 0, left: 0),
               child: UsersListScreen(
                 maxWidth: widget.maxWidthAndHeight.maxWidth,
               ),

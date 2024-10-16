@@ -62,36 +62,40 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: Text(
-                "Contacts",
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontFamily: Constants.montserratSemiBold,
-                      color: ColorPalette.whitePrimaryColor,
-                      fontSize: 14,
-                    ),
-              ),
-            ),
             Visibility(
-              visible: !isDesktopScreen,
-              child: InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: SvgPicture.asset(
-                    Assets.closeIcon,
-                    fit: BoxFit.contain,
-                    width: 30,
-                    height: 30,
-                  ),
+              visible: isDesktopScreen,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20.0, top: 20),
+                child: Text(
+                  "Contacts",
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontFamily: Constants.montserratSemiBold,
+                        color: ColorPalette.whitePrimaryColor,
+                        fontSize: 14,
+                      ),
                 ),
               ),
             ),
+            // Visibility(
+            //   visible: isDesktopScreen,
+            //   child: InkWell(
+            //     onTap: () => Navigator.pop(context),
+            //     child: Padding(
+            //       padding: const EdgeInsets.only(right: 20, top: 0),
+            //       child: SvgPicture.asset(
+            //         Assets.closeIcon,
+            //         fit: BoxFit.contain,
+            //         width: 30,
+            //         height: 30,
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: isDesktopScreen ? 20 : 0),
         Expanded(
           child: ListView.builder(
             itemCount: userListModel.usersList?.length ?? 0,
