@@ -10,6 +10,8 @@ class ChatTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final bool isDesktop = width >= 600;
     return Align(
       key: Key(UniqueKey().toString()),
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
@@ -22,9 +24,9 @@ class ChatTextWidget extends StatelessWidget {
             //width: 250,
             child: Container(
               //alignment: Alignment.topRight,
-              constraints: const BoxConstraints(maxWidth: 350),
+              constraints: BoxConstraints(maxWidth: isDesktop ? 350 : 250),
               decoration:  BoxDecoration(
-                color: ColorPalette.purple,
+                color: isUser ? ColorPalette.purple : ColorPalette.primaryContainer,
                 borderRadius: isUser ? const BorderRadius.only(topLeft: Radius.circular(6.0)) :
                 const BorderRadius.only(topRight: Radius.circular(6.0)),
               ),
