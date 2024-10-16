@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:talk_time/app/core/utils/assets_path.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
-import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
+import 'package:talk_time/app/core/utils/constants.dart';
 
 class ImageTextWidget extends StatelessWidget {
-  const ImageTextWidget({super.key, required this.text, required this.image, required this.isUser});
+  const ImageTextWidget({
+    super.key,
+    required this.text,
+    required this.image,
+    required this.isUser,
+    required this.time,
+  });
 
   final String text;
+  final String time;
   final String image;
   final bool isUser;
 
@@ -23,13 +29,15 @@ class ImageTextWidget extends StatelessWidget {
           children: [
             Container(
               alignment: isUser ? Alignment.topRight : Alignment.topLeft,
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 color: ColorPalette.purple,
-                borderRadius: isUser ?  const BorderRadius.only(
-                  topLeft: Radius.circular(6.0),
-                ): const BorderRadius.only(
-                  topRight: Radius.circular(6.0),
-                ),
+                borderRadius: isUser
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(6.0),
+                      )
+                    : const BorderRadius.only(
+                        topRight: Radius.circular(6.0),
+                      ),
               ),
               padding: const EdgeInsets.symmetric(
                 horizontal: 10,
@@ -54,11 +62,27 @@ class ImageTextWidget extends StatelessWidget {
                     image: AssetImage(image),
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: isUser ? const BorderRadius.only(
-                    bottomLeft: Radius.circular(6.0), // Bottom-left corner radius
-                  ) : const BorderRadius.only(
-                    bottomRight: Radius.circular(6.0), // Bottom-left corner radius
-                  ),
+                  borderRadius: isUser
+                      ? const BorderRadius.only(
+                          bottomLeft: Radius.circular(6.0), // Bottom-left corner radius
+                        )
+                      : const BorderRadius.only(
+                          bottomRight: Radius.circular(6.0), // Bottom-left corner radius
+                        ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 6),
+            Align(
+              alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+              child: Text(
+                time,
+                softWrap: true,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: ColorPalette.whitePrimaryColor,
+                  fontFamily: Constants.montserratRegular,
                 ),
               ),
             ),

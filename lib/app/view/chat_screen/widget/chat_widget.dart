@@ -38,7 +38,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     setState(() {});
   }
 
-  getTime(){
+  getTime() {
     DateTime now = DateTime.now();
     formattedTime = DateFormat.jm().format(now); // "08:30 PM"
     print(formattedTime);
@@ -93,6 +93,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                     isUser: userMessagesModel.messages?[index].isUser ?? false,
                     text: userMessagesModel.messages?[index].messageText ?? "",
                     image: userMessagesModel.messages?[index].file ?? "",
+                    time: formattedTime,
                   );
                 } else {
                   return const SizedBox.shrink();
