@@ -2,6 +2,7 @@ import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/core/utils/screen_sizes.dart';
 import 'package:talk_time/app/view/chat_screen/chat_screen.dart';
+import 'package:talk_time/app/view/chat_screen/widget/chat_widget.dart';
 import 'package:talk_time/app/view/userslist_screen/user_list_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,26 +14,27 @@ class MainContainer extends StatefulWidget {
 
   final BoxConstraints maxWidthAndHeight;
 
-
   @override
   State<MainContainer> createState() => _MainContainerState();
 }
 
-int getUsersListScreenSize(maxSize){
+int getUsersListScreenSize(maxSize) {
   int size = 3;
-  if(maxSize <= 800){
+  if (maxSize <= 800) {
     size = 4;
-  } if(maxSize <= 600){
+  }
+  if (maxSize <= 600) {
     size = 5;
   }
   return size;
 }
 
-int getChatScreenSize(maxSize){
+int getChatScreenSize(maxSize) {
   int size = 7;
-  if(maxSize <= 800){
+  if (maxSize <= 800) {
     size = 6;
-  } if(maxSize <= 600){
+  }
+  if (maxSize <= 600) {
     size = 5;
   }
   return size;
@@ -78,7 +80,7 @@ class _MainContainerState extends State<MainContainer> {
               flex: getChatScreenSize(maxWidth),
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  return ChatScreen(
+                  return ChatWidget(
                     maxWidth: maxWidth,
                     title: "Tulasi Reddy",
                     subTitle: "Online",

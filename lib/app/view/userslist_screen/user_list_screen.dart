@@ -8,6 +8,7 @@ import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/core/utils/screen_sizes.dart';
 import 'package:talk_time/app/model/user_list_model.dart';
+import 'package:talk_time/app/view/chat_screen/chat_screen.dart';
 import 'package:talk_time/app/view/userslist_screen/widget/bottom_nav_bar_widget.dart';
 import 'package:talk_time/app/view/userslist_screen/widget/user_item.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class UsersListScreen extends StatefulWidget {
     required this.maxWidth,
     this.isMobileScreen = false,
   });
+
   final double maxWidth;
   final bool isMobileScreen;
 
@@ -36,17 +38,13 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
   void initState() {
     super.initState();
     fetchUsersLis();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   fetchUsersLis() {
     final Map<String, dynamic> _userList = UserDummyData.userList;
     userListModel = userListModelFromJson(json.encode(_userList));
   }
-
-
 
   @override
   void dispose() {
@@ -100,23 +98,22 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
           child: ListView.builder(
             itemCount: userListModel.usersList?.length ?? 0,
             shrinkWrap: true,
-            physics:  const BouncingScrollPhysics(),
-            itemBuilder: (context, index)
-            {
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
               UsersList? usersList = userListModel.usersList?[index];
               final String icon = usersList?.icon ?? "";
               final String name = usersList?.name ?? "";
               String mainScreen = usersList?.mainRoutes ?? "";
               bool isSelectedItem = selectedIndex == index;
-              if(userListModel.usersList!.isEmpty) {
+              if (userListModel.usersList!.isEmpty) {
                 return Container(
                   padding: const EdgeInsets.all(2),
                   child: Text(
                     "No Users List...",
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: ColorPalette.whitePrimaryColor,
-                      fontSize: 16,
-                    ),
+                          color: ColorPalette.whitePrimaryColor,
+                          fontSize: 16,
+                        ),
                   ),
                 );
               } else {
@@ -128,6 +125,14 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
                       onTap: () async {
                         selectedIndex = index;
                         setState(() {});
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatScreen(
+                              maxWidth: widget.maxWidth,
+                            ),
+                          ),
+                        );
                       },
                       child: UserItem(
                         name: name,
