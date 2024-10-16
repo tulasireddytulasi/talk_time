@@ -63,13 +63,16 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Contacts",
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontFamily: Constants.montserratSemiBold,
-                    color: ColorPalette.whitePrimaryColor,
-                    fontSize: 14,
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
+                "Contacts",
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontFamily: Constants.montserratSemiBold,
+                      color: ColorPalette.whitePrimaryColor,
+                      fontSize: 14,
+                    ),
+              ),
             ),
             Visibility(
               visible: !isDesktopScreen,
@@ -137,7 +140,7 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
           ),
         ),
         const SizedBox(height: 4),
-        const BottomNavBarWidget(),
+        const Center(child: BottomNavBarWidget()),
         const SizedBox(height: 10),
       ],
     );

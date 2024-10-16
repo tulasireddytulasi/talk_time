@@ -50,6 +50,7 @@ class _UserItemState extends State<UserItem> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const SizedBox(width: 20),
               Visibility(
                 visible: widget.icon.isNotEmpty,
                 child: SizedBox(
