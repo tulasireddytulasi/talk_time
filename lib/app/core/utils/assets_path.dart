@@ -2,6 +2,11 @@ class Assets {
   Assets._();
 
   /// Icons
+  static const String chatIcon = "assets/icons/chat_icon.svg";
+  static const String statusIcon = "assets/icons/status_icon.svg";
+  static const String callIcon = "assets/icons/call_icon.svg";
+  static const String accountIcon = "assets/icons/account_icon.svg";
+
   static const String completedIcon = "assets/icons/completed_icon.svg";
   static const String inProcessIcon = "assets/icons/in_process_icon.svg";
   static const String closeIcon = "assets/icons/close.svg";

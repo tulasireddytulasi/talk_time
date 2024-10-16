@@ -8,6 +8,7 @@ import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/core/utils/screen_sizes.dart';
 import 'package:talk_time/app/model/user_list_model.dart';
+import 'package:talk_time/app/view/userslist_screen/widget/bottom_nav_bar_widget.dart';
 import 'package:talk_time/app/view/userslist_screen/widget/user_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -135,7 +136,9 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
             },
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 4),
+        const BottomNavBarWidget(),
+        const SizedBox(height: 10),
       ],
     );
   }

@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           extendBodyBehindAppBar: true,
           drawer: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
+              color: ColorPalette.primaryContainer, // Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(8),
             ),
             width: constraints.maxWidth - 80,
