@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 import 'package:talk_time/app/core/utils/assets_path.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
@@ -27,12 +28,20 @@ class _ChatWidgetState extends State<ChatWidget> {
   //late ThemeProvider themeProvider;
   int customWidget = 1;
   late UserMessagesModel userMessagesModel;
+  String formattedTime = "";
 
   @override
   void initState() {
     super.initState();
-    // themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    getTime();
     userMessagesModel = userMessagesModelFromJson(json.encode(UserDummyData.couplesMessages));
+    setState(() {});
+  }
+
+  getTime(){
+    DateTime now = DateTime.now();
+    formattedTime = DateFormat.jm().format(now); // "08:30 PM"
+    print(formattedTime);
   }
 
   @override
@@ -77,6 +86,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                   return ChatTextWidget(
                     isUser: userMessagesModel.messages?[index].isUser ?? false,
                     text: userMessagesModel.messages?[index].messageText ?? "",
+                    time: formattedTime,
                   );
                 } else if ((userMessagesModel.messages?[index].type ?? "") == Types.imageText.name) {
                   return ImageTextWidget(
