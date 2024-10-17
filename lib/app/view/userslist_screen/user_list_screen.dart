@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/core/utils/assets_path.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/constants.dart';
@@ -98,6 +99,7 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
           child: ListView.builder(
             itemCount: userListModel.usersList?.length ?? 0,
             shrinkWrap: true,
+            reverse: true,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               UsersList? usersList = userListModel.usersList?[index];
@@ -149,7 +151,18 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
           ),
         ),
         const SizedBox(height: 4),
-        const Center(child: BottomNavBarWidget()),
+        PlatformInfo.instance.isMobileDevice
+            ? const SizedBox.shrink()
+            : const Center(
+                child: BottomNavBarWidget(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: ColorPalette.primary,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                ),
+              ),
         const SizedBox(height: 10),
       ],
     );

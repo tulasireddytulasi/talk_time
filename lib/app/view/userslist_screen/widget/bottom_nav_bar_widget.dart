@@ -4,7 +4,15 @@ import 'package:talk_time/app/core/utils/assets_path.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 
 class BottomNavBarWidget extends StatefulWidget {
-  const BottomNavBarWidget({super.key});
+  const BottomNavBarWidget({
+    super.key,
+    required this.mainAxisAlignment,
+    required this.decoration,
+    required this.margin,
+  });
+  final MainAxisAlignment mainAxisAlignment;
+  final Decoration decoration;
+  final EdgeInsetsGeometry margin;
 
   @override
   State<BottomNavBarWidget> createState() => _BottomNavBarWidgetState();
@@ -17,13 +25,10 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      decoration: const BoxDecoration(
-        color: ColorPalette.primary,
-        borderRadius:  BorderRadius.all(Radius.circular(10)),
-      ),
+      margin: widget.margin,
+      decoration: widget.decoration,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: widget.mainAxisAlignment,
         children: List.generate(
           icons.length,
           (index) {

@@ -1,3 +1,4 @@
+import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/core/utils/screen_sizes.dart';
@@ -57,7 +58,7 @@ class _MainContainerState extends State<MainContainer> {
       ),
       margin: EdgeInsets.only(top: isDesktopScreen ? 20 : 0),
       decoration: BoxDecoration(
-        color: ColorPalette.primaryContainer,
+        color: PlatformInfo.instance.isMobileDevice ? ColorPalette.primary : ColorPalette.primaryContainer,
         borderRadius: isDesktopScreen ? const BorderRadius.all(Radius.circular(20)) : null,
       ),
       child: Row(

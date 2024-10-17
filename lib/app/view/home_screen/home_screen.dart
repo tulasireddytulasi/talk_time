@@ -1,9 +1,12 @@
+import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/core/utils/constants.dart';
+import 'package:talk_time/app/core/utils/functions.dart';
 import 'package:talk_time/app/view/home_screen/widget/main_container_widget.dart';
 import 'package:talk_time/app/view/userslist_screen/user_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/screen_sizes.dart';
+import 'package:talk_time/app/view/userslist_screen/widget/bottom_nav_bar_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Initialize the PlatformInfo singleton with the context
+      PlatformInfo.instance.initialize(context);
+    });
   }
 
   @override
@@ -31,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ? null
             : AppBar(
                 leadingWidth: 0,
-                backgroundColor: ColorPalette.primaryContainer,
+                backgroundColor: ColorPalette.primary,
                 actions: const [],
                 elevation: 6,
                 title: const Text(
@@ -96,6 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+        bottomNavigationBar: PlatformInfo.instance.isMobileDevice ?  BottomNavBarWidget(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          margin: EdgeInsets.zero,
+          decoration: BoxDecoration(
+            color: ColorPalette.primary,
+            border: Border(top: BorderSide(color: ColorPalette.whitePrimaryColor.shade100, width: 1)),
+          ),
+        ) : const SizedBox.shrink(),
       );
     });
   }

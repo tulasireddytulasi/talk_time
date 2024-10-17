@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:talk_time/app/view/home_screen/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
