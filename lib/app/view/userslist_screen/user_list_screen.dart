@@ -8,6 +8,7 @@ import 'package:talk_time/app/core/utils/constants.dart';
 import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/core/utils/screen_sizes.dart';
+import 'package:talk_time/app/core/utils/styles.dart';
 import 'package:talk_time/app/model/user_list_model.dart';
 import 'package:talk_time/app/view/chat_screen/chat_screen.dart';
 import 'package:talk_time/app/view/userslist_screen/widget/bottom_nav_bar_widget.dart';
@@ -77,21 +78,6 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
                 ),
               ),
             ),
-            // Visibility(
-            //   visible: isDesktopScreen,
-            //   child: InkWell(
-            //     onTap: () => Navigator.pop(context),
-            //     child: Padding(
-            //       padding: const EdgeInsets.only(right: 20, top: 0),
-            //       child: SvgPicture.asset(
-            //         Assets.closeIcon,
-            //         fit: BoxFit.contain,
-            //         width: 30,
-            //         height: 30,
-            //       ),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
         SizedBox(height: isDesktopScreen ? 20 : 0),
@@ -140,7 +126,8 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
                         name: name,
                         isSelectedItem: isSelectedItem,
                         icon: icon,
-                        textStyle: Theme.of(context).textTheme.titleMedium!,
+                        textTitleStyle: getTitleStyle(context: context, isSelectedItem: isSelectedItem),
+                        textSubTitleStyle: getSubTitleStyle(context: context, isSelectedItem: isSelectedItem),
                       ),
                     ),
                     const SizedBox(height: 8),

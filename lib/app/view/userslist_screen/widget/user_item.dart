@@ -8,7 +8,8 @@ class UserItem extends StatefulWidget {
     required this.isSelectedItem,
     required this.icon,
     this.margin = EdgeInsets.zero,
-    required this.textStyle,
+    required this.textTitleStyle,
+    required this.textSubTitleStyle,
     this.animation,
   });
 
@@ -16,7 +17,8 @@ class UserItem extends StatefulWidget {
   final String name;
   final bool isSelectedItem;
   final EdgeInsetsGeometry margin;
-  final TextStyle textStyle;
+  final TextStyle textTitleStyle;
+  final TextStyle textSubTitleStyle;
   final Animation<double>? animation;
 
   @override
@@ -73,23 +75,16 @@ class _UserItemState extends State<UserItem> {
                 children: [
                   Text(
                     widget.name,
-                    style: widget.textStyle.copyWith(
-                      color: widget.isSelectedItem ? ColorPalette.whitePrimaryColor : ColorPalette.whitePrimaryColor.withOpacity(0.6),
-                      fontSize: 16,
-                    ),
+                    style: widget.textTitleStyle,
                   ),
                   const SizedBox(height: 4),
                   SizedBox(
                    width: constraints.maxWidth - 130,
                     child: Text(
-                      "Thank you for choosing Rare Rabbit🙂",
+                      "Every time I see you, it's like the world stops and all I can focus on is you.",
                     maxLines: 1,
                       softWrap: true,
-                      style: widget.textStyle.copyWith(
-                        overflow: TextOverflow.ellipsis,
-                        color: widget.isSelectedItem ? ColorPalette.whitePrimaryColor : ColorPalette.whitePrimaryColor.withOpacity(0.6),
-                        fontSize: 12,
-                      ),
+                      style: widget.textSubTitleStyle,
                     ),
                   ),
                 ],
