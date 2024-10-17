@@ -10,6 +10,7 @@ class BottomNavBarWidget extends StatefulWidget {
     required this.decoration,
     required this.margin,
   });
+
   final MainAxisAlignment mainAxisAlignment;
   final Decoration decoration;
   final EdgeInsetsGeometry margin;
@@ -34,8 +35,7 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
           (index) {
             return SvgPicture.asset(
               icons[index],
-              //colorFilter: ColorFilter(),
-              color: ColorPalette.whitePrimaryColor,
+              colorFilter: const ColorFilter.mode(ColorPalette.whitePrimaryColor, BlendMode.srcIn),
               fit: BoxFit.contain,
               width: 30,
               height: 30,

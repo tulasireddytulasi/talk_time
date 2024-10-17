@@ -6,6 +6,11 @@ class Assets {
   static const String statusIcon = "assets/icons/status_icon.svg";
   static const String callIcon = "assets/icons/call_icon.svg";
   static const String accountIcon = "assets/icons/account_icon.svg";
+  static const String attachFileIcon = "assets/icons/attach_file_icon.svg";
+  static const String micIcon = "assets/icons/mic_icon.svg";
+  static const String sendIcon = "assets/icons/send_icon.svg";
+  static const String smileIcon = "assets/icons/smile_icon.svg";
+  static const String photoCameraIcon = "assets/icons/photo_camera_icon.svg";
 
   static const String completedIcon = "assets/icons/completed_icon.svg";
   static const String inProcessIcon = "assets/icons/in_process_icon.svg";
@@ -23,7 +28,6 @@ class Assets {
   static const String image1 = "assets/images/image1.png";
   static const String image2 = "assets/images/image2.jpg";
   static const String image3 = "assets/images/image3.png";
-
 
   /// Lottie Animations
   static const String pinkLoader = "assets/lottie/pink_loader.json";

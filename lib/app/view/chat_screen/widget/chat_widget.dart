@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
-import 'package:talk_time/app/core/utils/assets_path.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/model/messages_model.dart';
+import 'package:talk_time/app/view/chat_screen/widget/chat_text_field_widget.dart';
 import 'package:talk_time/app/view/chat_screen/widget/custom_text_widget.dart';
 import 'package:talk_time/app/view/chat_screen/widget/text_Image_widget.dart';
 import 'package:talk_time/app/widget/title_widget.dart';
@@ -24,8 +24,8 @@ class ChatWidget extends StatefulWidget {
 
 class _ChatWidgetState extends State<ChatWidget> {
   final String keyButtonContinue = "create_button_continue";
+  final TextEditingController _chatTextFieldController = TextEditingController();
 
-  //late ThemeProvider themeProvider;
   int customWidget = 1;
   late UserMessagesModel userMessagesModel;
   String formattedTime = "";
@@ -41,7 +41,12 @@ class _ChatWidgetState extends State<ChatWidget> {
   getTime() {
     DateTime now = DateTime.now();
     formattedTime = DateFormat.jm().format(now); // "08:30 PM"
-    print(formattedTime);
+  }
+
+  @override
+  void dispose() {
+    _chatTextFieldController.dispose();
+    super.dispose();
   }
 
   @override
@@ -102,6 +107,10 @@ class _ChatWidgetState extends State<ChatWidget> {
             ),
           ),
           const SizedBox(height: 4),
+          ChatTextFieldWidget(
+            key: const ValueKey("ChatTextField"),
+            textEditingController: _chatTextFieldController,
+          ),
         ],
       ),
     );
