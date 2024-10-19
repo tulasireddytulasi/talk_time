@@ -1,6 +1,5 @@
 import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/core/utils/constants.dart';
-import 'package:talk_time/app/core/utils/functions.dart';
 import 'package:talk_time/app/view/home_screen/widget/main_container_widget.dart';
 import 'package:talk_time/app/view/userslist_screen/user_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Initialize the PlatformInfo singleton with the context
-      PlatformInfo.instance.initialize(context);
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   @override

@@ -16,7 +16,6 @@ class _ChatTextFieldWidgetState extends State<ChatTextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.centerLeft,
       margin: const EdgeInsets.only(top: 4),
       padding: EdgeInsets.zero,
       decoration: const BoxDecoration(

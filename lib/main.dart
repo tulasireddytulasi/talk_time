@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/view/home_screen/home_screen.dart';
 
 void main() {
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    PlatformInfo.instance.initialize(context);
     return MaterialApp(
       title: 'Flutter Demo',
       scrollBehavior: MyCustomScrollBehavior(),
