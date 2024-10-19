@@ -1,5 +1,5 @@
 import 'package:talk_time/app/core/utils/color_palette.dart';
-import 'package:talk_time/app/view/chat_screen/widget/chat_widget.dart';
+import 'package:talk_time/app/presentation/chat_screen/widget/chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:talk_time/app/widget/title_widget.dart';
 

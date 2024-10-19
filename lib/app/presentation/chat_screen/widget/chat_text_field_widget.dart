@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talk_time/app/core/utils/assets_path.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
-import 'package:talk_time/app/view/chat_screen/widget/icon_widget.dart';
+import 'package:talk_time/app/presentation/chat_screen/widget/icon_widget.dart';
 
 class ChatTextFieldWidget extends StatefulWidget {
   const ChatTextFieldWidget({super.key, required this.textEditingController});

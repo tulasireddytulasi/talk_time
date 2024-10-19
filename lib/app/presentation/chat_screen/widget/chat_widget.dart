@@ -5,9 +5,9 @@ import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/model/messages_model.dart';
-import 'package:talk_time/app/view/chat_screen/widget/chat_text_field_widget.dart';
-import 'package:talk_time/app/view/chat_screen/widget/custom_text_widget.dart';
-import 'package:talk_time/app/view/chat_screen/widget/text_Image_widget.dart';
+import 'package:talk_time/app/presentation/chat_screen/widget/chat_text_field_widget.dart';
+import 'package:talk_time/app/presentation/chat_screen/widget/custom_text_widget.dart';
+import 'package:talk_time/app/presentation/chat_screen/widget/text_Image_widget.dart';
 import 'package:talk_time/app/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 

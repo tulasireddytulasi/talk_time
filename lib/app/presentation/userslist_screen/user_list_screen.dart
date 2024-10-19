@@ -1,21 +1,16 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:talk_time/app/controllers/platform_info.dart';
-import 'package:talk_time/app/core/utils/assets_path.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/constants.dart';
 import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
-import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/core/utils/screen_sizes.dart';
 import 'package:talk_time/app/core/utils/styles.dart';
 import 'package:talk_time/app/model/user_list_model.dart';
-import 'package:talk_time/app/view/chat_screen/chat_screen.dart';
-import 'package:talk_time/app/view/userslist_screen/widget/bottom_nav_bar_widget.dart';
-import 'package:talk_time/app/view/userslist_screen/widget/user_item.dart';
+import 'package:talk_time/app/presentation/chat_screen/chat_screen.dart';
+import 'package:talk_time/app/presentation/userslist_screen/widget/bottom_nav_bar_widget.dart';
+import 'package:talk_time/app/presentation/userslist_screen/widget/user_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({
