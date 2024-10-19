@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
 import 'package:talk_time/app/core/utils/extensions.dart';
@@ -19,11 +20,17 @@ class PlatformInfo {
   void initialize(BuildContext context) {
     // Set the platform type using the context
     _platformType = context.platformType;
-    deviceType();
+    setDeviceType();
   }
 
   bool _isMobileDevice = false;
   bool get isMobileDevice => _isMobileDevice;
+
+  bool _isDesktop = false;
+  bool get isDesktop => _isDesktop;
+
+  bool _isWeb = false;
+  bool get isWeb => _isWeb;
 
   // Getter for platformType
   PlatformType get platformType {
@@ -34,26 +41,30 @@ class PlatformInfo {
   }
 
   // Method to get device type based on platform
-  void deviceType() {
-    if (currentDeviceType == PlatformType.mobile) {
+  void setDeviceType() {
+    if (platformType == PlatformType.android || _platformType == PlatformType.ios) {
       _isMobileDevice = true;
-    } else if (currentDeviceType == PlatformType.desktop) {
-      _isMobileDevice = false;
-    } else if (currentDeviceType == PlatformType.unknown) {
-      _isMobileDevice = false;
+      _isDesktop = false;
+      _isWeb = false;
+      return;
     }
-  }
-
-  // Method to get device type based on platform
-  PlatformType get currentDeviceType {
-    if (_platformType == PlatformType.android || _platformType == PlatformType.ios) {
-      return PlatformType.mobile;
-    } else if (_platformType == PlatformType.windows ||
-        _platformType == PlatformType.macos ||
-        _platformType == PlatformType.linux) {
-      return PlatformType.desktop;
+    bool isDesktop = (platformType == PlatformType.windows) || (platformType == PlatformType.macos) || (platformType == PlatformType.linux);
+    if (isDesktop) {
+      _isDesktop = true;
+      _isMobileDevice = false;
+      _isWeb = false;
+      return;
+    }
+    if (kIsWeb) {
+      _isWeb = true;
+      _isMobileDevice = false;
+      _isDesktop = false;
+      return;
     } else {
-      return PlatformType.unknown;
+      _isMobileDevice = false;
+      _isDesktop = false;
+      _isWeb = false;
+      return;
     }
   }
 }
