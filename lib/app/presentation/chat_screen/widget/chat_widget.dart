@@ -82,6 +82,7 @@ class _ChatWidgetState extends State<ChatWidget> {
             child: ListView.separated(
               itemCount: userMessagesModel.messages?.length ?? 0,
               shrinkWrap: true,
+              reverse: true,
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 14);

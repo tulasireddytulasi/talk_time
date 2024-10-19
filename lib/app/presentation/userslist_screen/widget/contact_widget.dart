@@ -1,8 +1,8 @@
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:flutter/material.dart';
 
-class UserItem extends StatefulWidget {
-  const UserItem({
+class ContactWidget extends StatefulWidget {
+  const ContactWidget({
     super.key,
     required this.name,
     required this.isSelectedItem,
@@ -22,10 +22,10 @@ class UserItem extends StatefulWidget {
   final Animation<double>? animation;
 
   @override
-  State<UserItem> createState() => _UserItemState();
+  State<ContactWidget> createState() => _ContactWidgetState();
 }
 
-class _UserItemState extends State<UserItem> {
+class _ContactWidgetState extends State<ContactWidget> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

@@ -9,7 +9,7 @@ import 'package:talk_time/app/core/utils/styles.dart';
 import 'package:talk_time/app/model/user_list_model.dart';
 import 'package:talk_time/app/presentation/chat_screen/chat_screen.dart';
 import 'package:talk_time/app/presentation/userslist_screen/widget/bottom_nav_bar_widget.dart';
-import 'package:talk_time/app/presentation/userslist_screen/widget/user_item.dart';
+import 'package:talk_time/app/presentation/userslist_screen/widget/contact_widget.dart';
 import 'package:flutter/material.dart';
 
 class UsersListScreen extends StatefulWidget {
@@ -80,7 +80,7 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
           child: ListView.builder(
             itemCount: userListModel.usersList?.length ?? 0,
             shrinkWrap: true,
-            reverse: true,
+            reverse: false,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               UsersList? usersList = userListModel.usersList?[index];
@@ -117,7 +117,7 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
                           ),
                         );
                       },
-                      child: UserItem(
+                      child: ContactWidget(
                         name: name,
                         isSelectedItem: isSelectedItem,
                         icon: icon,

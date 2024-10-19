@@ -2,7 +2,7 @@ import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/screen_sizes.dart';
 import 'package:talk_time/app/presentation/chat_screen/widget/chat_widget.dart';
-import 'package:talk_time/app/presentation/userslist_screen/user_list_screen.dart';
+import 'package:talk_time/app/presentation/userslist_screen/contacts_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainContainer extends StatefulWidget {
