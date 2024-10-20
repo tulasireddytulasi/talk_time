@@ -1,5 +1,5 @@
-import 'package:talk_time/app/model/contact_model.dart';
+import 'package:talk_time/app/model/user_list_model.dart';
 
 abstract class IContactDataSource {
-  Future<List<ContactModel>> fetchContacts();
+  Future<List<UserContact>> fetchContacts();
 }

@@ -15,7 +15,7 @@ class ContactLoading extends HomeState {
 }
 
 class ContactLoaded extends HomeState {
-  final List<ContactModel> contacts;
+  final List<UserContact> contacts;
   ContactLoaded(this.contacts);
 
   @override

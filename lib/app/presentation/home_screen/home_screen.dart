@@ -1,5 +1,7 @@
 import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/core/utils/constants.dart';
+import 'package:talk_time/app/domain/get_contacts_use_case.dart';
+import 'package:talk_time/app/presentation/home_screen/bloc/home_bloc.dart';
 import 'package:talk_time/app/presentation/home_screen/widget/main_container_widget.dart';
 import 'package:talk_time/app/presentation/userslist_screen/contacts_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,8 @@ import 'package:talk_time/app/core/utils/screen_sizes.dart';
 import 'package:talk_time/app/presentation/userslist_screen/widget/bottom_nav_bar_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.getContactsUseCase});
+  final GetContactsUseCase getContactsUseCase;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -20,7 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      HomeBloc homeBloc = HomeBloc(getContactsUseCase: widget.getContactsUseCase);
+      homeBloc.add(FetchContacts());
+    });
   }
 
   @override

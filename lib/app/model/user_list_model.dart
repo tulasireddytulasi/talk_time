@@ -1,57 +1,62 @@
 // To parse this JSON data, do
 //
-//     final userListModel = userListModelFromJson(jsonString);
+//     final usersContactModel = usersContactModelFromJson(jsonString);
 
 import 'dart:convert';
+import 'dart:typed_data';
 
-UserListModel userListModelFromJson(String str) => UserListModel.fromJson(json.decode(str));
+UsersContactModel usersContactModelFromJson(String str) => UsersContactModel.fromJson(json.decode(str));
 
-String userListModelToJson(UserListModel data) => json.encode(data.toJson());
+String usersContactModelToJson(UsersContactModel data) => json.encode(data.toJson());
 
-class UserListModel {
-  List<UsersList>? usersList;
+class UsersContactModel {
+  List<UserContact>? userContacts;
 
-  UserListModel({
-    this.usersList,
+  UsersContactModel({
+    this.userContacts,
   });
 
-  factory UserListModel.fromJson(Map<String, dynamic> json) => UserListModel(
-    usersList: json["usersList"] == null ? [] : List<UsersList>.from(json["usersList"]!.map((x) => UsersList.fromJson(x))),
+  factory UsersContactModel.fromJson(Map<String, dynamic> json) => UsersContactModel(
+    userContacts: json["userContacts"] == null ? [] : List<UserContact>.from(json["userContacts"]!.map((x) => UserContact.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "usersList": usersList == null ? [] : List<dynamic>.from(usersList!.map((x) => x.toJson())),
+    "userContacts": userContacts == null ? [] : List<dynamic>.from(userContacts!.map((x) => x.toJson())),
   };
 }
 
-class UsersList {
-  String? icon;
+class UserContact {
+  String? status;
+  String? phoneNo;
+  String? lastMessage;
+  Uint8List? profilePic;
+  DateTime? dateTime;
   String? name;
-  String? mainRoutes;
-  String? lasMessage;
-  String? lastDateTime;
 
-  UsersList({
-    this.icon,
+  UserContact({
+    this.status,
+    this.phoneNo,
+    this.lastMessage,
+    this.profilePic,
+    this.dateTime,
     this.name,
-    this.mainRoutes,
-    this.lasMessage,
-    this.lastDateTime,
   });
 
-  factory UsersList.fromJson(Map<String, dynamic> json) => UsersList(
-    icon: json["icon"],
+  factory UserContact.fromJson(Map<String, dynamic> json) => UserContact(
+    status: json["status"],
+    phoneNo: json["phoneNo"],
+    lastMessage: json["lastMessage"],
+    profilePic: json["profilePic"],
+    dateTime: json["dateTime"] == null ? null : DateTime.parse(json["dateTime"]),
     name: json["name"],
-    mainRoutes: json["mainRoutes"],
-    lasMessage: json["lasMessage"],
-    lastDateTime: json["lastDateTime"],
   );
 
   Map<String, dynamic> toJson() => {
-    "icon": icon,
+    "status": status,
+    "phoneNo": phoneNo,
+    "lastMessage": lastMessage,
+    "profilePic": profilePic,
+    "dateTime": dateTime?.toIso8601String(),
     "name": name,
-    "mainRoutes": mainRoutes,
-    "lasMessage": lasMessage,
-    "lastDateTime": lastDateTime,
   };
 }

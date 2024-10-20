@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/constants.dart';
@@ -8,6 +10,7 @@ import 'package:talk_time/app/core/utils/screen_sizes.dart';
 import 'package:talk_time/app/core/utils/styles.dart';
 import 'package:talk_time/app/model/user_list_model.dart';
 import 'package:talk_time/app/presentation/chat_screen/chat_screen.dart';
+import 'package:talk_time/app/presentation/home_screen/bloc/home_bloc.dart';
 import 'package:talk_time/app/presentation/userslist_screen/widget/bottom_nav_bar_widget.dart';
 import 'package:talk_time/app/presentation/userslist_screen/widget/contact_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +30,8 @@ class UsersListScreen extends StatefulWidget {
 }
 
 class _UsersListScreenState extends State<UsersListScreen> with TickerProviderStateMixin {
-  late UserListModel userListModel;
+  late UsersContactModel usersContactModel;
+  final String dummyMessage = "Every time I see you, it's like the world stops and all I can focus on is you.";
 
   int selectedIndex = 0;
 
@@ -40,7 +44,7 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
 
   fetchUsersLis() {
     final Map<String, dynamic> _userList = UserDummyData.userList;
-    userListModel = userListModelFromJson(json.encode(_userList));
+    usersContactModel = usersContactModelFromJson(json.encode(_userList));
   }
 
   @override
@@ -77,57 +81,75 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
         ),
         SizedBox(height: isDesktopScreen ? 20 : 0),
         Expanded(
-          child: ListView.builder(
-            itemCount: userListModel.usersList?.length ?? 0,
-            shrinkWrap: true,
-            reverse: false,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) {
-              UsersList? usersList = userListModel.usersList?[index];
-              final String icon = usersList?.icon ?? "";
-              final String name = usersList?.name ?? "";
-              String mainScreen = usersList?.mainRoutes ?? "";
-              bool isSelectedItem = selectedIndex == index;
-              if (userListModel.usersList!.isEmpty) {
-                return Container(
-                  padding: const EdgeInsets.all(2),
-                  child: Text(
-                    "No Users List...",
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: ColorPalette.whitePrimaryColor,
-                          fontSize: 16,
-                        ),
-                  ),
-                );
-              } else {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () async {
-                        selectedIndex = index;
-                        setState(() {});
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChatScreen(
-                              maxWidth: widget.maxWidth,
-                            ),
+          child: BlocConsumer<HomeBloc, HomeState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            builder: (context, state) {
+              switch (state) {
+                case ContactLoading():
+                  return const Center(child: CircularProgressIndicator());
+                case ContactError():
+                  return const Text('Something went wrong!');
+                case ContactLoaded():
+                  return ListView.builder(
+                    itemCount: state.contacts.length,
+                    shrinkWrap: true,
+                    reverse: false,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      UserContact userContact = state.contacts[index];
+                      final Uint8List icon = userContact.profilePic ?? Uint8List.fromList(<int>[]);
+                      final String name = userContact.name ?? "";
+                      final String lastMessage = userContact.lastMessage ?? dummyMessage;
+                      final String status = userContact.status ?? "";
+                      bool isSelectedItem = selectedIndex == index;
+                      if (state.contacts.isEmpty) {
+                        return Container(
+                          padding: const EdgeInsets.all(2),
+                          child: Text(
+                            "No Users List...",
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  color: ColorPalette.whitePrimaryColor,
+                                  fontSize: 16,
+                                ),
                           ),
                         );
-                      },
-                      child: ContactWidget(
-                        name: name,
-                        isSelectedItem: isSelectedItem,
-                        icon: icon,
-                        textTitleStyle: getTitleStyle(context: context, isSelectedItem: isSelectedItem),
-                        textSubTitleStyle: getSubTitleStyle(context: context, isSelectedItem: isSelectedItem),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
-                );
+                      } else {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                selectedIndex = index;
+                                setState(() {});
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatScreen(
+                                      maxWidth: widget.maxWidth,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: ContactWidget(
+                                name: name,
+                                lastMessage: lastMessage,
+                                isSelectedItem: isSelectedItem,
+                                icon: icon,
+                                textTitleStyle: getTitleStyle(context: context, isSelectedItem: isSelectedItem),
+                                textSubTitleStyle: getSubTitleStyle(context: context, isSelectedItem: isSelectedItem),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        );
+                      }
+                    },
+                  );
+                default:
+                  return const CircularProgressIndicator();
               }
             },
           ),

@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:talk_time/app/domain/get_contacts_use_case.dart';
-import 'package:talk_time/app/model/contact_model.dart';
+import 'package:talk_time/app/model/user_list_model.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

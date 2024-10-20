@@ -1,11 +1,11 @@
 import 'package:talk_time/app/data/resource/i_contact_data_source.dart';
-import 'package:talk_time/app/model/contact_model.dart';
+import 'package:talk_time/app/model/user_list_model.dart';
 
 class ApiContactDataSource implements IContactDataSource {
   @override
-  Future<List<ContactModel>> fetchContacts() async {
+  Future<List<UserContact>> fetchContacts() async {
     // Fetch contacts from an API
-    List<ContactModel>  data = [];
+    List<UserContact>  data = [];
     return data;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:flutter/material.dart';
 
@@ -10,11 +12,12 @@ class ContactWidget extends StatefulWidget {
     this.margin = EdgeInsets.zero,
     required this.textTitleStyle,
     required this.textSubTitleStyle,
-    this.animation,
+    this.animation, required this.lastMessage,
   });
 
-  final String icon;
+  final Uint8List icon;
   final String name;
+  final String lastMessage;
   final bool isSelectedItem;
   final EdgeInsetsGeometry margin;
   final TextStyle textTitleStyle;
@@ -58,10 +61,10 @@ class _ContactWidgetState extends State<ContactWidget> {
                 child: SizedBox(
                   width: 44,
                   height: 44,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(widget.icon),
+                  child: ClipOval(
+                    child: Image.memory(widget.icon),
                   ),
-                ),
+                )
               ),
               const SizedBox(width: 10),
               Visibility(
@@ -81,7 +84,7 @@ class _ContactWidgetState extends State<ContactWidget> {
                   SizedBox(
                    width: constraints.maxWidth - 130,
                     child: Text(
-                      "Every time I see you, it's like the world stops and all I can focus on is you.",
+                      widget.lastMessage,
                     maxLines: 1,
                       softWrap: true,
                       style: widget.textSubTitleStyle,
