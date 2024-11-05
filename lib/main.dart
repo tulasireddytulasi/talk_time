@@ -9,9 +9,10 @@ import 'package:talk_time/app/presentation/home_screen/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app/data/repositories/contact_repository.dart';
+import 'app/data/repositories/local_db_messages_repository.dart';
 import 'app/data/resource/api_contact_data_source.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Set up dependencies
   final apiDataSource = ApiContactDataSource();
@@ -19,7 +20,7 @@ void main() {
   final contactRepository = ContactRepository(
     contactDataSource: localDbDataSource,
   );
-
+  await LocalDbMessagesRepositoryDataBase.initialize();
   runApp(MyApp(getContactsUseCase: GetContactsUseCase(contactRepository: contactRepository)));
 }
 
