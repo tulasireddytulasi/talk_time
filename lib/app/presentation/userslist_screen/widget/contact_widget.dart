@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:talk_time/app/core/utils/assets_path.dart';
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,9 @@ class ContactWidget extends StatefulWidget {
     this.margin = EdgeInsets.zero,
     required this.textTitleStyle,
     required this.textSubTitleStyle,
-    this.animation, required this.lastMessage,
+    this.animation,
+    required this.lastMessage,
+    required this.dateTime,
   });
 
   final Uint8List icon;
@@ -23,6 +26,7 @@ class ContactWidget extends StatefulWidget {
   final TextStyle textTitleStyle;
   final TextStyle textSubTitleStyle;
   final Animation<double>? animation;
+  final DateTime dateTime;
 
   @override
   State<ContactWidget> createState() => _ContactWidgetState();
@@ -64,7 +68,17 @@ class _ContactWidgetState extends State<ContactWidget> {
                   child: ClipOval(
                     child: Image.memory(widget.icon),
                   ),
-                )
+                ),
+              ),
+              Visibility(
+                visible: widget.icon.isEmpty,
+                child: SizedBox(
+                  width: 44,
+                  height: 44,
+                  child: ClipOval(
+                    child: Image.asset(Assets.image1, fit: BoxFit.cover),
+                  ),
+                ),
               ),
               const SizedBox(width: 10),
               Visibility(
@@ -76,41 +90,49 @@ class _ContactWidgetState extends State<ContactWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.name,
-                    style: widget.textTitleStyle,
+                  SizedBox(
+                    width: constraints.maxWidth - 150,
+                    child: Text(
+                      widget.name,
+                      style: widget.textTitleStyle,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   SizedBox(
-                   width: constraints.maxWidth - 130,
+                    width: constraints.maxWidth - 150,
                     child: Text(
                       widget.lastMessage,
-                    maxLines: 1,
+                      maxLines: 1,
                       softWrap: true,
                       style: widget.textSubTitleStyle,
                     ),
                   ),
                 ],
               ),
-              Visibility(
-                visible: widget.icon.isNotEmpty,
-                child: const Spacer(),
+              const Spacer(),
+              Text(
+                "12:30 PM",
+                softWrap: true,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: ColorPalette.blackPrimaryColor.shade200,
+                      fontSize: 12,
+                    ),
               ),
-              Visibility(
-                visible: widget.icon.isNotEmpty,
-                child: RotationTransition(
-                  turns: widget.animation == null ? const AlwaysStoppedAnimation(0.0) : widget.animation!,
-                  child: Icon(
-                    Icons.keyboard_arrow_right_outlined,
-                    color: ColorPalette.whitePrimaryColor.withOpacity(0.4),
-                  ),
-                ),
-              ),
-              Visibility(visible: widget.icon.isNotEmpty, child: const SizedBox(width: 6)),
+              // Visibility(
+              //   visible: false, //widget.icon.isNotEmpty,
+              //   child: RotationTransition(
+              //     turns: widget.animation == null ? const AlwaysStoppedAnimation(0.0) : widget.animation!,
+              //     child: Icon(
+              //       Icons.keyboard_arrow_right_outlined,
+              //       color: ColorPalette.whitePrimaryColor.withOpacity(0.4),
+              //     ),
+              //   ),
+              // ),
+              const SizedBox(width: 6),
             ],
           ),
         );
-      }
+      },
     );
   }
 }

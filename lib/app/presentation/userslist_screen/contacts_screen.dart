@@ -134,6 +134,7 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
                                 );
                               },
                               child: ContactWidget(
+                                dateTime: userContact.dateTime ?? DateTime.now(),
                                 name: name,
                                 lastMessage: lastMessage,
                                 isSelectedItem: isSelectedItem,
