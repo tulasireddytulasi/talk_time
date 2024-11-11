@@ -83,6 +83,7 @@ class _MainContainerState extends State<MainContainer> {
                     maxWidth: maxWidth,
                     title: "Tulasi Reddy",
                     subTitle: "Online",
+                    phoneNo: "7775",
                   );
                 },
               ),

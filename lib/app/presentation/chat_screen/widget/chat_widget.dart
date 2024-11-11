@@ -12,11 +12,18 @@ import 'package:talk_time/app/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class ChatWidget extends StatefulWidget {
-  const ChatWidget({super.key, required this.maxWidth, required this.title, required this.subTitle});
+  const ChatWidget({
+    super.key,
+    required this.maxWidth,
+    required this.title,
+    required this.subTitle,
+    required this.phoneNo,
+  });
 
   final double maxWidth;
   final String title;
   final String subTitle;
+  final String phoneNo;
 
   @override
   State<ChatWidget> createState() => _ChatWidgetState();

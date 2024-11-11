@@ -4,9 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:talk_time/app/widget/title_widget.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.maxWidth});
+  const ChatScreen({
+    super.key,
+    required this.maxWidth,
+    required this.phoneNo,
+    required this.name,
+  });
 
   final double maxWidth;
+  final String phoneNo;
+  final String name;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -27,17 +34,18 @@ class _ChatScreenState extends State<ChatScreen> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back, color: ColorPalette.whitePrimaryColor),
         ),
-        title: const TitleWidget(
+        title: TitleWidget(
           isDesktopScreen: false,
-          title: "Tulasi Reddy",
+          title: widget.name,
           subTitle: "Online",
         ),
       ),
       body: SafeArea(
         child: ChatWidget(
           maxWidth: widget.maxWidth,
-          title: "Tulasi Reddy",
+          title: widget.name,
           subTitle: "Online",
+          phoneNo: widget.phoneNo,
         ),
       ),
     );

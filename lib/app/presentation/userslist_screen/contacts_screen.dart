@@ -101,6 +101,7 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
                       UserContact userContact = state.contacts[index];
                       final Uint8List icon = userContact.profilePic ?? Uint8List.fromList(<int>[]);
                       final String name = userContact.name ?? "";
+                      final String phoneNo = userContact.phoneNo ?? "";
                       final String lastMessage = userContact.lastMessage ?? dummyMessage;
                       final String status = userContact.status ?? "";
                       bool isSelectedItem = selectedIndex == index;
@@ -129,6 +130,8 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
                                   MaterialPageRoute(
                                     builder: (context) => ChatScreen(
                                       maxWidth: widget.maxWidth,
+                                      phoneNo: phoneNo,
+                                      name: name,
                                     ),
                                   ),
                                 );
