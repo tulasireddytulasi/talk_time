@@ -30,7 +30,7 @@ class UsersListScreen extends StatefulWidget {
 }
 
 class _UsersListScreenState extends State<UsersListScreen> with TickerProviderStateMixin {
-  late UsersContactModel usersContactModel;
+  //late UsersContactModel usersContactModel;
   final String dummyMessage = "Every time I see you, it's like the world stops and all I can focus on is you.";
 
   int selectedIndex = 0;
@@ -44,7 +44,7 @@ class _UsersListScreenState extends State<UsersListScreen> with TickerProviderSt
 
   fetchUsersLis() {
     final Map<String, dynamic> _userList = UserDummyData.userList;
-    usersContactModel = usersContactModelFromJson(json.encode(_userList));
+    //usersContactModel = usersContactModelFromJson(json.encode(_userList));
   }
 
   @override

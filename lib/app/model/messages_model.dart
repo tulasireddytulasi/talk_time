@@ -21,29 +21,37 @@ class UserMessagesModel {
 }
 
 class Message {
-  bool? isUser;
-  String? type;
+  int? senderId;
+  int? receiverId;
+  String? widgetType;
+  String? filePath;
   String? messageText;
-  String? file;
+  DateTime? date;
 
   Message({
-    this.isUser,
-    this.type,
+    this.senderId,
+    this.receiverId,
+    this.widgetType,
+    this.filePath,
     this.messageText,
-    this.file,
+    this.date,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
-    isUser: json["isUser"],
-    type: json["type"],
+    senderId: json["senderId"],
+    receiverId: json["receiverId"],
+    widgetType: json["widgetType"],
+    filePath: json["filePath"],
     messageText: json["messageText"],
-    file: json["file"],
+    date: json["date"] == null ? null : DateTime.parse(json["date"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "isUser": isUser,
-    "type": type,
+    "senderId": senderId,
+    "receiverId": receiverId,
+    "widgetType": widgetType,
+    "filePath": filePath,
     "messageText": messageText,
-    "file": file,
+    "date": date?.toIso8601String(),
   };
 }

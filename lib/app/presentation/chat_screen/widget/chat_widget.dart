@@ -88,17 +88,17 @@ class _ChatWidgetState extends State<ChatWidget> {
                 return const SizedBox(height: 14);
               },
               itemBuilder: (context, index) {
-                if ((userMessagesModel.messages?[index].type ?? "") == Types.text.name) {
+                if ((userMessagesModel.messages?[index].widgetType ?? "") == Types.text.name) {
                   return ChatTextWidget(
-                    isUser: userMessagesModel.messages?[index].isUser ?? false,
+                    isUser: (userMessagesModel.messages?[index].senderId ?? "") == UserDummyData.userId,
                     text: userMessagesModel.messages?[index].messageText ?? "",
                     time: formattedTime,
                   );
-                } else if ((userMessagesModel.messages?[index].type ?? "") == Types.imageText.name) {
+                } else if ((userMessagesModel.messages?[index].widgetType ?? "") == Types.imageText.name) {
                   return ImageTextWidget(
-                    isUser: userMessagesModel.messages?[index].isUser ?? false,
+                    isUser: (userMessagesModel.messages?[index].senderId ?? "") == UserDummyData.userId,
                     text: userMessagesModel.messages?[index].messageText ?? "",
-                    image: userMessagesModel.messages?[index].file ?? "",
+                    image: userMessagesModel.messages?[index].filePath ?? "",
                     time: formattedTime,
                   );
                 } else {
