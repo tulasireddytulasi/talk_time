@@ -94,6 +94,13 @@ class _ChatWidgetState extends State<ChatWidget> {
                 switch(state){
                   case ChatError():
                     return Text('Something went wrong!: ${state.errorMessage}');
+                  case NoMessages():
+                    return const Center(
+                      child: Text(
+                        'No Messages!',
+                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                    );
                   case LoadMessages():
                     return ListView.separated(
                       itemCount: state.messages.length,

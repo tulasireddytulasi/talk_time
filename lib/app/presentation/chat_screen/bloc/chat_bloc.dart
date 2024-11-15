@@ -36,6 +36,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ));
       }
 
+      if (messages.isEmpty) {
+        emit(NoMessages());
+        return;
+      }
+
       emit(LoadMessages(messages: [...messages], time: DateTime.now()));
     } catch (e, s) {
       emit(ChatError(errorMessage: e.toString()));

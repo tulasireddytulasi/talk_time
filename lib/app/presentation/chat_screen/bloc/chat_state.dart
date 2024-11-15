@@ -10,6 +10,11 @@ final class ChatInitial extends ChatState {
   List<Object?> get props => [];
 }
 
+final class NoMessages extends ChatState {
+  @override
+  List<Object?> get props => [];
+}
+
 final class LoadMessages extends ChatState {
   const LoadMessages({
     required this.messages,
