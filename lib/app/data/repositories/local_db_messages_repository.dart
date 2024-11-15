@@ -6,42 +6,55 @@ import 'package:talk_time/app/model/local_message_model.dart';
 /// Reference: https://isar.dev/crud.html#modifying-the-database
 
 class LocalDbMessagesRepositoryDataBase {
+
+  LocalDbMessagesRepositoryDataBase._();
+
+  static final LocalDbMessagesRepositoryDataBase _localDbMessagesRepositoryDataBase = LocalDbMessagesRepositoryDataBase._();
+
+  factory LocalDbMessagesRepositoryDataBase() {
+    return _localDbMessagesRepositoryDataBase;
+  }
+
   static late Isar isar;
 
   // Initialize DB
   static Future<void> initialize() async {
     final dir = await getApplicationDocumentsDirectory();
     isar = await Isar.open(
-      [MessageSchema],
+      [LocalMessageModelSchema],
       directory: dir.path,
     );
   }
 
   // Read DB
-  static List<Message> localAllMessages = [];
+  static List<LocalMessageModel> localAllMessages = [];
 
-  static List<Message> localMessages = [];
+  static List<LocalMessageModel> localMessages = [];
+
+  static String senderId = "8374998490";
+  static String receiverId = "";
 
   // Send Messages
-  Future<void> sendMessage({required String message}) async {
-    final messageModel = Message()
+  Future<void> sendMessage({required String message, required String receiverId}) async {
+    final messageModel = LocalMessageModel()
       ..date = DateTime.now()
       ..message = message
-      ..senderId = "548595"
-      ..receiverId = "746356794"
+      ..senderId = senderId
+      ..receiverId = receiverId
       ..filePath = "doc/img/img.jpg"
       // ..status = MessStatus.seen
       ..widgetTypeName = "text";
 
+    // putByIndex
     await isar.writeTxn(() async {
-      await isar.messages.put(messageModel); // insert & update
+      await isar.localMessageModels.put(messageModel); // insert & update
     });
     await fetchMessage(senderId: messageModel.senderId, receiverId: messageModel.receiverId);
   }
 
   // Fetch all Messages
   Future<void> fetchAllMessage() async {
-    final messages = await isar.messages.where().findAll();
+    final messages = await isar.localMessageModels.where().findAll();
     print("Mess: ${messages.length}");
     localAllMessages.clear();
     localAllMessages.addAll(messages);
@@ -49,9 +62,9 @@ class LocalDbMessagesRepositoryDataBase {
 
   // Fetch particular contact Messages
   Future<void> fetchMessage({required String senderId, required String receiverId}) async {
-    final messages = await isar.messages.filter()
-        .senderIdEqualTo(senderId)
-        .or()
+    final messages = await isar.localMessageModels.filter()
+        // .senderIdEqualTo(senderId)
+        // .or()
         .receiverIdEqualTo(receiverId)
         .findAll();
     print("Mess: ${messages.length}");
@@ -61,17 +74,17 @@ class LocalDbMessagesRepositoryDataBase {
 
   // Update Message
   Future<void> updateMessage({required int id, required String message}) async {
-    final currentMessage = await isar.messages.get(id);
+    final currentMessage = await isar.localMessageModels.get(id);
     if (currentMessage != null) {
       currentMessage.message = message;
-      await isar.writeTxn(() async => await isar.messages.put(currentMessage));
+      await isar.writeTxn(() async => await isar.localMessageModels.put(currentMessage));
       await fetchMessage(senderId: currentMessage.senderId, receiverId: currentMessage.receiverId);
     }
   }
 
   // Delete Message
   Future<void> deleteMessage({required int id}) async {
-    await isar.writeTxn(() async => await isar.messages.delete(id));
+    await isar.writeTxn(() async => await isar.localMessageModels.delete(id));
     // Todo: Need to fix
     // await fetchMessage();
   }

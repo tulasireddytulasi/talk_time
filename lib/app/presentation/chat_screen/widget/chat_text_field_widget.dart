@@ -4,9 +4,10 @@ import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/presentation/chat_screen/widget/icon_widget.dart';
 
 class ChatTextFieldWidget extends StatefulWidget {
-  const ChatTextFieldWidget({super.key, required this.textEditingController});
+  const ChatTextFieldWidget({super.key, required this.textEditingController, this.onClick});
 
   final TextEditingController textEditingController;
+  final VoidCallback? onClick;
 
   @override
   State<ChatTextFieldWidget> createState() => _ChatTextFieldWidgetState();
@@ -52,7 +53,10 @@ class _ChatTextFieldWidgetState extends State<ChatTextFieldWidget> {
           ),
           const IconWidget(iconPath: Assets.attachFileIcon),
           const IconWidget(iconPath: Assets.photoCameraIcon),
-          const IconWidget(iconPath: Assets.sendIcon),
+          IconWidget(
+            iconPath: Assets.sendIcon,
+            onClick: widget.onClick,
+          ),
         ],
       ),
     );

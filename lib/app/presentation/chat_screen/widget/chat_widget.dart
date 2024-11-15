@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
+import 'package:talk_time/app/data/repositories/local_db_messages_repository.dart';
 import 'package:talk_time/app/model/messages_model.dart';
+import 'package:talk_time/app/presentation/chat_screen/bloc/chat_bloc.dart';
 import 'package:talk_time/app/presentation/chat_screen/widget/chat_text_field_widget.dart';
 import 'package:talk_time/app/presentation/chat_screen/widget/custom_text_widget.dart';
 import 'package:talk_time/app/presentation/chat_screen/widget/text_Image_widget.dart';
@@ -34,15 +37,14 @@ class _ChatWidgetState extends State<ChatWidget> {
   final TextEditingController _chatTextFieldController = TextEditingController();
 
   int customWidget = 1;
-  late UserMessagesModel userMessagesModel;
   String formattedTime = "";
+  ChatBloc chatBloc = ChatBloc();
 
   @override
   void initState() {
     super.initState();
     getTime();
-    userMessagesModel = userMessagesModelFromJson(json.encode(UserDummyData.couplesMessages));
-    setState(() {});
+    chatBloc.add(FetchMessages(receiverId: widget.phoneNo));
   }
 
   getTime() {
@@ -74,42 +76,59 @@ class _ChatWidgetState extends State<ChatWidget> {
         children: [
           isDesktopScreen
               ? TitleWidget(
-                  isDesktopScreen: isDesktopScreen,
-                  title: widget.title,
-                  subTitle: widget.subTitle,
-                )
+            isDesktopScreen: isDesktopScreen,
+            title: widget.title,
+            subTitle: widget.subTitle,
+          )
               : const SizedBox.shrink(),
           isDesktopScreen
               ? Divider(
-                  color: ColorPalette.blackPrimaryColor.shade100.withOpacity(0.4),
-                )
+            color: ColorPalette.blackPrimaryColor.shade100.withOpacity(0.4),
+          )
               : const SizedBox.shrink(),
           const SizedBox(height: 4),
           Expanded(
-            child: ListView.separated(
-              itemCount: userMessagesModel.messages?.length ?? 0,
-              shrinkWrap: true,
-              reverse: true,
-              physics: const BouncingScrollPhysics(),
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 14);
-              },
-              itemBuilder: (context, index) {
-                if ((userMessagesModel.messages?[index].widgetType ?? "") == Types.text.name) {
-                  return ChatTextWidget(
-                    isUser: (userMessagesModel.messages?[index].senderId ?? "") == UserDummyData.userId,
-                    text: userMessagesModel.messages?[index].messageText ?? "",
-                    time: formattedTime,
-                  );
-                } else if ((userMessagesModel.messages?[index].widgetType ?? "") == Types.imageText.name) {
-                  return ImageTextWidget(
-                    isUser: (userMessagesModel.messages?[index].senderId ?? "") == UserDummyData.userId,
-                    text: userMessagesModel.messages?[index].messageText ?? "",
-                    image: userMessagesModel.messages?[index].filePath ?? "",
-                    time: formattedTime,
-                  );
-                } else {
-                  return const SizedBox.shrink();
+            child: BlocBuilder<ChatBloc, ChatState>(
+              bloc: chatBloc,
+              builder: (context, state) {
+                switch(state){
+                  case ChatError():
+                    return Text('Something went wrong!: ${state.errorMessage}');
+                  case LoadMessages():
+                    return ListView.separated(
+                      itemCount: state.messages.length,
+                      shrinkWrap: true,
+                      reverse: true,
+                      physics: const BouncingScrollPhysics(),
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 14);
+                      },
+                      itemBuilder: (context, index) {
+                        if ((state.messages[index].widgetType) == Types.text.name) {
+                          return ChatTextWidget(
+                            isUser: (state.messages[index].senderId) == UserDummyData.userId,
+                            text: state.messages[index].messageText ?? "",
+                            time: formattedTime,
+                          );
+                        } else if ((state.messages[index].widgetType ?? "") == Types.imageText.name) {
+                          return ImageTextWidget(
+                            isUser: (state.messages[index].senderId) == UserDummyData.userId,
+                            text: state.messages[index].messageText ?? "",
+                            image: state.messages[index].filePath ?? "",
+                            time: formattedTime,
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    );
+                  default:
+                    return const Center(
+                      child: Text(
+                        'No Messages!',
+                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                    );
                 }
               },
             ),
@@ -117,6 +136,12 @@ class _ChatWidgetState extends State<ChatWidget> {
           const SizedBox(height: 4),
           ChatTextFieldWidget(
             key: const ValueKey("ChatTextField"),
+            onClick: () {
+              LocalDbMessagesRepositoryDataBase().sendMessage(
+                receiverId: widget.phoneNo,
+                message: _chatTextFieldController.text.trim(),
+              );
+            },
             textEditingController: _chatTextFieldController,
           ),
         ],

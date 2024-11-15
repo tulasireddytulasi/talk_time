@@ -8,7 +8,7 @@ class UserDummyData {
   static const String baseURLKey = "BASE_URL";
   static const String envKey = "ENV";
 
-  static const int userId = 12345;
+  static const String userId = "8374998490";
 
   static List<String> get unauthorizedRequests => [getMoviesAPI];
 

@@ -21,8 +21,8 @@ class UserMessagesModel {
 }
 
 class Message {
-  int? senderId;
-  int? receiverId;
+  String? senderId;
+  String? receiverId;
   String? widgetType;
   String? filePath;
   String? messageText;

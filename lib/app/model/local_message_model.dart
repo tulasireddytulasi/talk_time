@@ -3,7 +3,7 @@ import 'package:talk_time/app/core/utils/enums.dart';
 part 'local_message_model.g.dart';
 
 @Collection()
-class Message {
+class LocalMessageModel {
   Id id = Isar.autoIncrement; // Primary key
   late DateTime date;
   late String message;

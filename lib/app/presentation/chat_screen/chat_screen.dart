@@ -1,4 +1,5 @@
 import 'package:talk_time/app/core/utils/color_palette.dart';
+import 'package:talk_time/app/presentation/chat_screen/bloc/chat_bloc.dart';
 import 'package:talk_time/app/presentation/chat_screen/widget/chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:talk_time/app/widget/title_widget.dart';
@@ -23,6 +24,10 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ChatBloc chatBloc = ChatBloc();
+      chatBloc.add(FetchMessages(receiverId: widget.phoneNo));
+    });
   }
 
   @override

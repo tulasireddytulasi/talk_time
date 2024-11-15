@@ -9,13 +9,13 @@ part of 'local_message_model.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetMessageCollection on Isar {
-  IsarCollection<Message> get messages => this.collection();
+extension GetLocalMessageModelCollection on Isar {
+  IsarCollection<LocalMessageModel> get localMessageModels => this.collection();
 }
 
-const MessageSchema = CollectionSchema(
-  name: r'Message',
-  id: 2463283977299753079,
+const LocalMessageModelSchema = CollectionSchema(
+  name: r'LocalMessageModel',
+  id: -3755124595844361002,
   properties: {
     r'date': PropertySchema(
       id: 0,
@@ -46,7 +46,7 @@ const MessageSchema = CollectionSchema(
       id: 5,
       name: r'status',
       type: IsarType.string,
-      enumMap: _MessagestatusEnumValueMap,
+      enumMap: _LocalMessageModelstatusEnumValueMap,
     ),
     r'widgetTypeName': PropertySchema(
       id: 6,
@@ -54,22 +54,22 @@ const MessageSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _messageEstimateSize,
-  serialize: _messageSerialize,
-  deserialize: _messageDeserialize,
-  deserializeProp: _messageDeserializeProp,
+  estimateSize: _localMessageModelEstimateSize,
+  serialize: _localMessageModelSerialize,
+  deserialize: _localMessageModelDeserialize,
+  deserializeProp: _localMessageModelDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _messageGetId,
-  getLinks: _messageGetLinks,
-  attach: _messageAttach,
+  getId: _localMessageModelGetId,
+  getLinks: _localMessageModelGetLinks,
+  attach: _localMessageModelAttach,
   version: '3.1.0+1',
 );
 
-int _messageEstimateSize(
-  Message object,
+int _localMessageModelEstimateSize(
+  LocalMessageModel object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -83,8 +83,8 @@ int _messageEstimateSize(
   return bytesCount;
 }
 
-void _messageSerialize(
-  Message object,
+void _localMessageModelSerialize(
+  LocalMessageModel object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -98,27 +98,27 @@ void _messageSerialize(
   writer.writeString(offsets[6], object.widgetTypeName);
 }
 
-Message _messageDeserialize(
+LocalMessageModel _localMessageModelDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Message();
+  final object = LocalMessageModel();
   object.date = reader.readDateTime(offsets[0]);
   object.filePath = reader.readString(offsets[1]);
   object.id = id;
   object.message = reader.readString(offsets[2]);
   object.receiverId = reader.readString(offsets[3]);
   object.senderId = reader.readString(offsets[4]);
-  object.status =
-      _MessagestatusValueEnumMap[reader.readStringOrNull(offsets[5])] ??
-          MessStatus.sent;
+  object.status = _LocalMessageModelstatusValueEnumMap[
+          reader.readStringOrNull(offsets[5])] ??
+      MessStatus.sent;
   object.widgetTypeName = reader.readString(offsets[6]);
   return object;
 }
 
-P _messageDeserializeProp<P>(
+P _localMessageModelDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -136,7 +136,8 @@ P _messageDeserializeProp<P>(
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
-      return (_MessagestatusValueEnumMap[reader.readStringOrNull(offset)] ??
+      return (_LocalMessageModelstatusValueEnumMap[
+              reader.readStringOrNull(offset)] ??
           MessStatus.sent) as P;
     case 6:
       return (reader.readString(offset)) as P;
@@ -145,39 +146,44 @@ P _messageDeserializeProp<P>(
   }
 }
 
-const _MessagestatusEnumValueMap = {
+const _LocalMessageModelstatusEnumValueMap = {
   r'sent': r'sent',
   r'notSent': r'notSent',
   r'seen': r'seen',
 };
-const _MessagestatusValueEnumMap = {
+const _LocalMessageModelstatusValueEnumMap = {
   r'sent': MessStatus.sent,
   r'notSent': MessStatus.notSent,
   r'seen': MessStatus.seen,
 };
 
-Id _messageGetId(Message object) {
+Id _localMessageModelGetId(LocalMessageModel object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _messageGetLinks(Message object) {
+List<IsarLinkBase<dynamic>> _localMessageModelGetLinks(
+    LocalMessageModel object) {
   return [];
 }
 
-void _messageAttach(IsarCollection<dynamic> col, Id id, Message object) {
+void _localMessageModelAttach(
+    IsarCollection<dynamic> col, Id id, LocalMessageModel object) {
   object.id = id;
 }
 
-extension MessageQueryWhereSort on QueryBuilder<Message, Message, QWhere> {
-  QueryBuilder<Message, Message, QAfterWhere> anyId() {
+extension LocalMessageModelQueryWhereSort
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QWhere> {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension MessageQueryWhere on QueryBuilder<Message, Message, QWhereClause> {
-  QueryBuilder<Message, Message, QAfterWhereClause> idEqualTo(Id id) {
+extension LocalMessageModelQueryWhere
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QWhereClause> {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterWhereClause>
+      idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -186,7 +192,8 @@ extension MessageQueryWhere on QueryBuilder<Message, Message, QWhereClause> {
     });
   }
 
-  QueryBuilder<Message, Message, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterWhereClause>
+      idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -208,8 +215,8 @@ extension MessageQueryWhere on QueryBuilder<Message, Message, QWhereClause> {
     });
   }
 
-  QueryBuilder<Message, Message, QAfterWhereClause> idGreaterThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterWhereClause>
+      idGreaterThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -217,8 +224,8 @@ extension MessageQueryWhere on QueryBuilder<Message, Message, QWhereClause> {
     });
   }
 
-  QueryBuilder<Message, Message, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterWhereClause>
+      idLessThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -226,7 +233,8 @@ extension MessageQueryWhere on QueryBuilder<Message, Message, QWhereClause> {
     });
   }
 
-  QueryBuilder<Message, Message, QAfterWhereClause> idBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterWhereClause>
+      idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -243,10 +251,10 @@ extension MessageQueryWhere on QueryBuilder<Message, Message, QWhereClause> {
   }
 }
 
-extension MessageQueryFilter
-    on QueryBuilder<Message, Message, QFilterCondition> {
-  QueryBuilder<Message, Message, QAfterFilterCondition> dateEqualTo(
-      DateTime value) {
+extension LocalMessageModelQueryFilter
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QFilterCondition> {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      dateEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'date',
@@ -255,7 +263,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> dateGreaterThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      dateGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -268,7 +277,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> dateLessThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      dateLessThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -281,7 +291,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> dateBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      dateBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -298,7 +309,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathEqualTo(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -311,7 +323,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathGreaterThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -326,7 +339,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathLessThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -341,7 +355,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -360,7 +375,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathStartsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -373,7 +389,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathEndsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -386,9 +403,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'filePath',
@@ -398,9 +414,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'filePath',
@@ -410,7 +425,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathIsEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'filePath',
@@ -419,7 +435,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> filePathIsNotEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      filePathIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'filePath',
@@ -428,7 +445,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -437,7 +455,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -450,7 +469,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> idLessThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -463,7 +483,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> idBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -480,7 +501,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageEqualTo(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -493,7 +515,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageGreaterThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -508,7 +531,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageLessThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -523,7 +547,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -542,7 +567,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageStartsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -555,7 +581,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageEndsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -568,9 +595,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'message',
@@ -580,9 +606,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'message',
@@ -592,7 +617,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageIsEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'message',
@@ -601,7 +627,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> messageIsNotEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      messageIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'message',
@@ -610,7 +637,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdEqualTo(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -623,7 +651,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdGreaterThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -638,7 +667,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdLessThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -653,7 +683,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -672,7 +703,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdStartsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -685,7 +717,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdEndsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -698,9 +731,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'receiverId',
@@ -710,9 +742,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'receiverId',
@@ -722,7 +753,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdIsEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'receiverId',
@@ -731,7 +763,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> receiverIdIsNotEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      receiverIdIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'receiverId',
@@ -740,7 +773,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdEqualTo(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -753,7 +787,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdGreaterThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -768,7 +803,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdLessThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -783,7 +819,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -802,7 +839,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdStartsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -815,7 +853,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdEndsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -828,9 +867,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'senderId',
@@ -840,9 +878,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'senderId',
@@ -852,7 +889,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdIsEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'senderId',
@@ -861,7 +899,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> senderIdIsNotEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      senderIdIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'senderId',
@@ -870,7 +909,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusEqualTo(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusEqualTo(
     MessStatus value, {
     bool caseSensitive = true,
   }) {
@@ -883,7 +923,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusGreaterThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusGreaterThan(
     MessStatus value, {
     bool include = false,
     bool caseSensitive = true,
@@ -898,7 +939,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusLessThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusLessThan(
     MessStatus value, {
     bool include = false,
     bool caseSensitive = true,
@@ -913,7 +955,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusBetween(
     MessStatus lower,
     MessStatus upper, {
     bool includeLower = true,
@@ -932,7 +975,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusStartsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -945,7 +989,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusEndsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -958,9 +1003,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'status',
@@ -970,9 +1014,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'status',
@@ -982,7 +1025,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusIsEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'status',
@@ -991,7 +1035,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> statusIsNotEmpty() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      statusIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'status',
@@ -1000,7 +1045,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> widgetTypeNameEqualTo(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      widgetTypeNameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1013,7 +1059,7 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition>
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
       widgetTypeNameGreaterThan(
     String value, {
     bool include = false,
@@ -1029,7 +1075,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> widgetTypeNameLessThan(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      widgetTypeNameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1044,7 +1091,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> widgetTypeNameBetween(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      widgetTypeNameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -1063,7 +1111,7 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition>
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
       widgetTypeNameStartsWith(
     String value, {
     bool caseSensitive = true,
@@ -1077,7 +1125,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> widgetTypeNameEndsWith(
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      widgetTypeNameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1090,9 +1139,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> widgetTypeNameContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      widgetTypeNameContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'widgetTypeName',
@@ -1102,9 +1150,8 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition> widgetTypeNameMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
+      widgetTypeNameMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'widgetTypeName',
@@ -1114,7 +1161,7 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition>
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
       widgetTypeNameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -1124,7 +1171,7 @@ extension MessageQueryFilter
     });
   }
 
-  QueryBuilder<Message, Message, QAfterFilterCondition>
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterFilterCondition>
       widgetTypeNameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -1135,242 +1182,273 @@ extension MessageQueryFilter
   }
 }
 
-extension MessageQueryObject
-    on QueryBuilder<Message, Message, QFilterCondition> {}
+extension LocalMessageModelQueryObject
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QFilterCondition> {}
 
-extension MessageQueryLinks
-    on QueryBuilder<Message, Message, QFilterCondition> {}
+extension LocalMessageModelQueryLinks
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QFilterCondition> {}
 
-extension MessageQuerySortBy on QueryBuilder<Message, Message, QSortBy> {
-  QueryBuilder<Message, Message, QAfterSortBy> sortByDate() {
+extension LocalMessageModelQuerySortBy
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QSortBy> {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'date', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByDateDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByDateDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'date', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByFilePath() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByFilePath() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'filePath', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByFilePathDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByFilePathDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'filePath', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByMessage() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByMessage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'message', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByMessageDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByMessageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'message', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByReceiverId() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByReceiverId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'receiverId', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByReceiverIdDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByReceiverIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'receiverId', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortBySenderId() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortBySenderId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senderId', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortBySenderIdDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortBySenderIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senderId', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByStatus() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByStatusDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByWidgetTypeName() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByWidgetTypeName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetTypeName', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> sortByWidgetTypeNameDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      sortByWidgetTypeNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetTypeName', Sort.desc);
     });
   }
 }
 
-extension MessageQuerySortThenBy
-    on QueryBuilder<Message, Message, QSortThenBy> {
-  QueryBuilder<Message, Message, QAfterSortBy> thenByDate() {
+extension LocalMessageModelQuerySortThenBy
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QSortThenBy> {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'date', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByDateDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByDateDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'date', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByFilePath() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByFilePath() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'filePath', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByFilePathDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByFilePathDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'filePath', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenById() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByMessage() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByMessage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'message', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByMessageDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByMessageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'message', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByReceiverId() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByReceiverId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'receiverId', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByReceiverIdDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByReceiverIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'receiverId', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenBySenderId() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenBySenderId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senderId', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenBySenderIdDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenBySenderIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senderId', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByStatus() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByStatusDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByWidgetTypeName() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByWidgetTypeName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetTypeName', Sort.asc);
     });
   }
 
-  QueryBuilder<Message, Message, QAfterSortBy> thenByWidgetTypeNameDesc() {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QAfterSortBy>
+      thenByWidgetTypeNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'widgetTypeName', Sort.desc);
     });
   }
 }
 
-extension MessageQueryWhereDistinct
-    on QueryBuilder<Message, Message, QDistinct> {
-  QueryBuilder<Message, Message, QDistinct> distinctByDate() {
+extension LocalMessageModelQueryWhereDistinct
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QDistinct> {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QDistinct>
+      distinctByDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'date');
     });
   }
 
-  QueryBuilder<Message, Message, QDistinct> distinctByFilePath(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QDistinct>
+      distinctByFilePath({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'filePath', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Message, Message, QDistinct> distinctByMessage(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QDistinct>
+      distinctByMessage({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'message', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Message, Message, QDistinct> distinctByReceiverId(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QDistinct>
+      distinctByReceiverId({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'receiverId', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Message, Message, QDistinct> distinctBySenderId(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QDistinct>
+      distinctBySenderId({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'senderId', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Message, Message, QDistinct> distinctByStatus(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QDistinct>
+      distinctByStatus({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'status', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Message, Message, QDistinct> distinctByWidgetTypeName(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalMessageModel, LocalMessageModel, QDistinct>
+      distinctByWidgetTypeName({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'widgetTypeName',
           caseSensitive: caseSensitive);
@@ -1378,51 +1456,54 @@ extension MessageQueryWhereDistinct
   }
 }
 
-extension MessageQueryProperty
-    on QueryBuilder<Message, Message, QQueryProperty> {
-  QueryBuilder<Message, int, QQueryOperations> idProperty() {
+extension LocalMessageModelQueryProperty
+    on QueryBuilder<LocalMessageModel, LocalMessageModel, QQueryProperty> {
+  QueryBuilder<LocalMessageModel, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Message, DateTime, QQueryOperations> dateProperty() {
+  QueryBuilder<LocalMessageModel, DateTime, QQueryOperations> dateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'date');
     });
   }
 
-  QueryBuilder<Message, String, QQueryOperations> filePathProperty() {
+  QueryBuilder<LocalMessageModel, String, QQueryOperations> filePathProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'filePath');
     });
   }
 
-  QueryBuilder<Message, String, QQueryOperations> messageProperty() {
+  QueryBuilder<LocalMessageModel, String, QQueryOperations> messageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'message');
     });
   }
 
-  QueryBuilder<Message, String, QQueryOperations> receiverIdProperty() {
+  QueryBuilder<LocalMessageModel, String, QQueryOperations>
+      receiverIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'receiverId');
     });
   }
 
-  QueryBuilder<Message, String, QQueryOperations> senderIdProperty() {
+  QueryBuilder<LocalMessageModel, String, QQueryOperations> senderIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'senderId');
     });
   }
 
-  QueryBuilder<Message, MessStatus, QQueryOperations> statusProperty() {
+  QueryBuilder<LocalMessageModel, MessStatus, QQueryOperations>
+      statusProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status');
     });
   }
 
-  QueryBuilder<Message, String, QQueryOperations> widgetTypeNameProperty() {
+  QueryBuilder<LocalMessageModel, String, QQueryOperations>
+      widgetTypeNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'widgetTypeName');
     });

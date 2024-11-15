@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:talk_time/app/controllers/platform_info.dart';
 import 'package:talk_time/app/data/resource/local_db_contact_data_source.dart';
 import 'package:talk_time/app/domain/get_contacts_use_case.dart';
+import 'package:talk_time/app/presentation/chat_screen/bloc/chat_bloc.dart';
 import 'package:talk_time/app/presentation/home_screen/bloc/home_bloc.dart';
 import 'package:talk_time/app/presentation/home_screen/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
           create: (_) => HomeBloc(
             getContactsUseCase: getContactsUseCase,
           )..add(FetchContacts()),
+        ),
+        BlocProvider(
+          create: (_) => ChatBloc(),
         ),
       ],
       child: MaterialApp(
