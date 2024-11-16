@@ -62,10 +62,10 @@ class LocalDbMessagesRepositoryDataBase {
 
   // Fetch particular contact Messages
   Future<void> fetchMessage({required String senderId, required String receiverId}) async {
-    final messages = await isar.localMessageModels.filter()
-        // .senderIdEqualTo(senderId)
-        // .or()
-        .receiverIdEqualTo(receiverId)
+    final messages = await isar.localMessageModels
+        .filter()
+        .receiverIdEqualTo(receiverId) // Filter by receiverId
+        .sortByDateDesc()              // Sort by date descending
         .findAll();
     print("Mess: ${messages.length}");
     localMessages.clear();
@@ -85,7 +85,7 @@ class LocalDbMessagesRepositoryDataBase {
   // Delete Message
   Future<void> deleteMessage({required int id}) async {
     await isar.writeTxn(() async => await isar.localMessageModels.delete(id));
-    // Todo: Need to fix
+    // Todo: Need to implement
     // await fetchMessage();
   }
 }
