@@ -5,11 +5,13 @@ sealed class ChatEvent extends Equatable {
   const ChatEvent();
 }
 
-final class FetchMessages extends ChatEvent {
+final class FetchOrSendMessages extends ChatEvent {
 
-  const FetchMessages({required this.receiverId});
+  const FetchOrSendMessages({required this.receiverId, this.message = "",  this.isSend = false});
   final String receiverId;
+  final String message;
+  final bool isSend;
 
   @override
-  List<Object> get props => [receiverId];
+  List<Object> get props => [receiverId, message, isSend];
 }

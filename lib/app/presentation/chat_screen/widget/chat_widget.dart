@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:talk_time/app/core/utils/color_palette.dart';
 import 'package:talk_time/app/core/utils/dummy_data/users_list_data.dart';
 import 'package:talk_time/app/core/utils/enums.dart';
-import 'package:talk_time/app/data/repositories/local_db_messages_repository.dart';
-import 'package:talk_time/app/model/messages_model.dart';
 import 'package:talk_time/app/presentation/chat_screen/bloc/chat_bloc.dart';
 import 'package:talk_time/app/presentation/chat_screen/widget/chat_text_field_widget.dart';
 import 'package:talk_time/app/presentation/chat_screen/widget/custom_text_widget.dart';
@@ -38,13 +35,11 @@ class _ChatWidgetState extends State<ChatWidget> {
 
   int customWidget = 1;
   String formattedTime = "";
-  ChatBloc chatBloc = ChatBloc();
 
   @override
   void initState() {
     super.initState();
     getTime();
-    chatBloc.add(FetchMessages(receiverId: widget.phoneNo));
   }
 
   getTime() {
@@ -76,22 +71,21 @@ class _ChatWidgetState extends State<ChatWidget> {
         children: [
           isDesktopScreen
               ? TitleWidget(
-            isDesktopScreen: isDesktopScreen,
-            title: widget.title,
-            subTitle: widget.subTitle,
-          )
+                  isDesktopScreen: isDesktopScreen,
+                  title: widget.title,
+                  subTitle: widget.subTitle,
+                )
               : const SizedBox.shrink(),
           isDesktopScreen
               ? Divider(
-            color: ColorPalette.blackPrimaryColor.shade100.withOpacity(0.4),
-          )
+                  color: ColorPalette.blackPrimaryColor.shade100.withOpacity(0.4),
+                )
               : const SizedBox.shrink(),
           const SizedBox(height: 4),
           Expanded(
             child: BlocBuilder<ChatBloc, ChatState>(
-              bloc: chatBloc,
               builder: (context, state) {
-                switch(state){
+                switch (state) {
                   case ChatError():
                     return Text('Something went wrong!: ${state.errorMessage}');
                   case NoMessages():
@@ -144,10 +138,12 @@ class _ChatWidgetState extends State<ChatWidget> {
           ChatTextFieldWidget(
             key: const ValueKey("ChatTextField"),
             onClick: () {
-              LocalDbMessagesRepositoryDataBase().sendMessage(
-                receiverId: widget.phoneNo,
-                message: _chatTextFieldController.text.trim(),
-              );
+              context.read<ChatBloc>().add(FetchOrSendMessages(
+                    receiverId: widget.phoneNo,
+                    message: _chatTextFieldController.text.trim(),
+                    isSend: true,
+                  ));
+              _chatTextFieldController.text = "";
             },
             textEditingController: _chatTextFieldController,
           ),

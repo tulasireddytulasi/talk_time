@@ -13,11 +13,18 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatInitial()) {
-    on<FetchMessages>(_fetchMessages);
+    on<FetchOrSendMessages>(_fetchOrSendMessages);
   }
 
-  FutureOr<void> _fetchMessages(FetchMessages event, Emitter<ChatState> emit) async {
+  FutureOr<void> _fetchOrSendMessages(FetchOrSendMessages event, Emitter<ChatState> emit) async {
     try {
+      if (event.isSend) {
+        await LocalDbMessagesRepositoryDataBase().sendMessage(
+          message: event.message,
+          receiverId: event.receiverId,
+        );
+      }
+
       await LocalDbMessagesRepositoryDataBase().fetchMessage(
         senderId: LocalDbMessagesRepositoryDataBase.senderId,
         receiverId: event.receiverId,
