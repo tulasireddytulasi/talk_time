@@ -66,6 +66,9 @@ class LocalDbMessagesRepositoryDataBase {
         .filter()
         .receiverIdEqualTo(receiverId) // Filter by receiverId
         .sortByDateDesc()              // Sort by date descending
+        // Todo: Need to implement pagination
+        // .offset(0)  // Starting index
+        // .limit(10)  // Number of records to fetch
         .findAll();
     print("Mess: ${messages.length}");
     localMessages.clear();
